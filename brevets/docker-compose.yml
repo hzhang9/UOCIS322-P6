@@ -1,14 +1,31 @@
 version: '3'
 
 services:
-    web:
-        build: .
-        command: python -u flask_brevets.py
-        ports:
-            - "5891:5000"
-        depends_on:
-            - tododb
-        environment:
-            MONGODB_HOSTNAME: tododb
-    tododb:
-        image: mongo:latest
+  brevetsapp:
+    build: brevetsapp/     
+    command: python -u flask_brevets.py
+    ports: 
+      -"5891:5000"
+    depends_on:
+      - todobe
+    environment:
+      - MONGODB_HOSTNAME: tododb
+  restapi:
+    build: api/
+    command: python -u api.py
+    ports: 
+      -"5892:5000"
+    depends_on:
+      - todobe
+    environment:
+      - MONGODB_HOSTNAME: tododb
+  website:
+    build: website/
+    command: python -u website.py
+    ports:
+      -"5893:5000"
+    depends_on:
+      - restapi
+  tododb:
+    image: mongo:latest
+    
