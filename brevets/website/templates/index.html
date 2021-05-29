@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <title>ACP Brevet Times Consumer Program</title>
+  </head>
+  <body>
+    <p>Click following button to display the submitted specified information with in specified format(json or csv)</p>
+    <p>Input the number of brevet times instance that you want to see from top in the space(option)</p>
+    <form action='/listAJ' method='POST'>
+      <input id='top' name='top' value='top'/>
+      <button>List all times(json)</button>
+    </form>
+    <form action='/listOJ' method='POST'>
+      <input name='top' type='text' value='top'/>
+      <button>List open times(json)</button>
+    </form>
+    <form action='/listCJ' method='POST'>
+      <input id='top' name='top' value='top'/>
+      <button>List close times(json)</button>
+    </form>
+    <form action='/listAC' method='POST'>
+      <input id='top' name='top' value='top'/>
+      <button>List all times(csv)</button>
+    </form>
+    <form action='/listOC' method='POST'>
+      <input id='top' name='top' value='top'/>
+      <button>List open times(csv)</button>
+    </form>
+    <form action='/listCC' method='POST'>
+      <input id='top' name='top' value='top'/>
+      <button>List close times(csv)</button>
+    </form>
+  </body>
+</html>

@@ -1,37 +1,71 @@
-from flask import Flask, render_template
+import flask
+from flask import Flask, render_template, request
 import requests
+import os
+import logging
 
+ADDR= os.environ['BACKEND_ADDR']
+PORT= os.environ['BACKEND_PORT']
 app = Flask(__name__)
-
 
 @app.route('/')
 @app.route('/index')
 def index():
     return flask.render_template('index.html')
 
-@app.route('/listAJ')
+
+@app.route('/listAJ',methods=['POST'])
 def listAJ():
-    r = requests.get('http://restapi:5000/listAll')
+    top=request.form['top']
+    if top==None or top.isdigit()==False:
+        r = requests.get('http://{}:{}/listAll/json'.format(ADDR,PORT))
+    else:
+        r = requests.get('http://{}:{}/listAll/json?top={}'.format(ADDR,PORT,top))
     return r.text
-@app.route('/listOJ')
+
+@app.route('/listOJ',methods=['POST'] )
 def listOJ():
-    r = requests.get('http://restapi:5000/listAll')
+    top=request.form['top']
+    if top==None or top.isdigit()==False:
+        r = requests.get('http://{}:{}/listOpenOnly/json'.format(ADDR,PORT))
+    else:
+        r = requests.get('http://{}:{}/listOpenOnly/json?top={}'.format(ADDR,PORT,top))
     return r.text
-@app.route('/listCJ')
+
+@app.route('/listCJ',methods=['POST'])
 def listCJ():
-    r = requests.get('http://restapi:5000/listAll')
+    top=request.form['top']
+    if top==None or top.isdigit()==False:
+        r = requests.get('http://{}:{}/listCloseOnly/json'.format(ADDR,PORT))
+    else:
+        r = requests.get('http://{}:{}/listCloseOnly/json?top={}'.format(ADDR,PORT,top))
     return r.text
-@app.route('/listAC')
+
+@app.route('/listAC',methods=['POST'])
 def listAC():
-    r = requests.get('http://restapi:5000/listAll')
+    top=request.form['top']
+    if top==None or top.isdigit()==False:
+        r = requests.get('http://{}:{}/listAll/csv'.format(ADDR,PORT))
+    else:
+        r = requests.get('http://{}:{}/listAll/csv?top={}'.format(ADDR,PORT,top))
     return r.text
-@app.route('/listOC')
+
+@app.route('/listOC',methods=['POST'])
 def listOC():
-    r = requests.get('http://restapi:5000/listAll')
+    top=request.form['top']
+    if top==None or top.isdigit()==False:
+        r = requests.get('http://{}:{}/listOpenOnly/csv'.format(ADDR,PORT))
+    else:
+        r = requests.get('http://{}:{}/listOpenOnly/csv?top={}'.format(ADDR,PORT,top))
     return r.text
-@app.route('/listCC')
+
+@app.route('/listCC',methods=['POST'])
 def listCC():
-    r = requests.get('http://restapi:5000/listAll')
+    top=request.form['top']
+    if top==None or top.isdigit()==False:
+        r = requests.get('http://{}:{}/listCloseOnly/csv'.format(ADDR,PORT))
+    else:
+        r = requests.get('http://{}:{}/listCloseOnly/csv?top={}'.format(ADDR,PORT,top))
     return r.text
 
 if __name__ == '__main__':

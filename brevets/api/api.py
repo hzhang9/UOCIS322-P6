@@ -81,10 +81,10 @@ class listOC(Resource):
             for item in items:
                 values=','.join([item['miles'],item['km'],item['location'],item['open']])
                 result.append(values)
-            return {'ACP Brevet Open Times Display':result}
+            return result
         else:
             for i in range(int(top)):
-                values+=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['open']])
+                values=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['open']])
                 result.append(values)
             return result
 
@@ -103,7 +103,7 @@ class listCC(Resource):
             return result
         else:
             for i in range(int(top)):
-                values+=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['close']])
+                values=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['close']])
                 result.append(values)
             return result
 
