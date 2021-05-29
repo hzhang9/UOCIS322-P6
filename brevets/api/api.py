@@ -14,52 +14,43 @@ class listAJ(Resource):
         top=request.args.get("top")
         result=[]
         items=list(db.tododb.find())
-        counter=1
-        bre_order={}
         if top==None or len(items)<int(top):
             for item in items:
-                result.append({'ACP Brevet Times Instance {}'.format(counter):{'miles':item['miles'],'km':item['km'],'location':item['location'],'open':item['open'],'close':item['close']}})
-                counter+=1
-            return {'ACP Brevet Times Display':result}
+                result.append({'miles':item['miles'],'km':item['km'],'location':item['location'],'open':item['open'],'close':item['close']})
+            #return {'ACP Brevet Times Display':result}
+            return result
         else:
             for i in range(int(top)):
-                result.append({'ACP Brevet Times Instance {}'.format(counter):{'miles':items[i]['miles'],'km':items[i]['km'],'location':items[i]['location'],'open':items[i]['open'],'close':items[i]['close']}})
-                counter+=1
-            return {'ACP Brevet Times Display':result}
+                result.append({'miles':items[i]['miles'],'km':items[i]['km'],'location':items[i]['location'],'open':items[i]['open'],'close':items[i]['close']})
+            return result
 
 class listOJ(Resource):
     def get(self):
         top=request.args.get("top")
         result=[]
         items=list(db.tododb.find())
-        counter=1
         if top==None or len(items)<int(top):
             for item in items:
-                result.append({'ACP Brevet Open Times Instance {}'.format(counter) :{'miles':item['miles'],'km':item['km'],'location':item['location'],'open':item['open']}})
-                counter+=1
-            return {'ACP Brevet Open Times Display':result}
+                result.append({'miles':item['miles'],'km':item['km'],'location':item['location'],'open':item['open']})
+            return result
         else:
             for i in range(int(top)):
-                result.append({'ACP Brevet Open Times Instance {}'.format(counter):{'miles':items[i]['miles'],'km':items[i]['km'],'location':items[i]['location'],'open':items[i]['open']}})
-                counter+=1
-            return {'ACP Brevet Open Times Display':result}
+                result.append({'miles':items[i]['miles'],'km':items[i]['km'],'location':items[i]['location'],'open':items[i]['open']})
+            return result
 
 class listCJ(Resource):
     def get(self):
         top=request.args.get("top")
         result=[]
         items=list(db.tododb.find())
-        counter=1
         if top==None or len(items)<int(top):
             for item in items:
-                result.append({'ACP Brevet Open Times Instance {}'.format(counter) :{'miles':item['miles'],'km':item['km'],'location':item['location'],'close':item['close']}})
-                counter+=1
-            return {'ACP Brevet Close Times Display':result}
+                result.append({'miles':item['miles'],'km':item['km'],'location':item['location'],'close':item['close']})
+            return result
         else:
             for i in range(int(top)):
-                result.append({'ACP Brevet Open Times Instance {}'.format(counter):{'miles':items[i]['miles'],'km':items[i]['km'],'location':items[i]['location'],'close':items[i]['close']}})
-                counter+=1
-            return {'ACP Brevet Close Times Display':result}
+                result.append({'miles':items[i]['miles'],'km':items[i]['km'],'location':items[i]['location'],'close':items[i]['close']})
+            return result
 
 class listAC(Resource):
     def get(self):
@@ -67,20 +58,17 @@ class listAC(Resource):
         result=[]
         items=list(db.tododb.find())
         headers='miles,km,location,open,close'
-        result.append({"ACP Brevet Times Headers":headers})
-        counter=1
+        result.append(headers)
         if top==None or len(items)<int(top):
             for item in items:
                 values=','.join([item['miles'],item['km'],item['location'],item['open'],item['close']])
-                result.append({"ACP Brevet Time Values {}".format(counter):values})
-                counter+=1
-            return {'ACP Brevet Times Display':result}
+                result.append(values)
+            return result
         else:
             for i in range(int(top)):
                 values=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['open'],items[i]['close']])
-                result.append({"ACP Brevet Time Values {}".format(counter):values})
-                counter+=1
-            return {'ACP Brevet Times Display':result}
+                result.append(values)
+            return result
 
 class listOC(Resource):
     def get(self):
@@ -88,20 +76,17 @@ class listOC(Resource):
         result=[]
         items=list(db.tododb.find())
         headers='miles,km,location,open'
-        result.append({"ACP Brevet Times Headers":headers})
-        counter=1
+        result.append(headers)
         if top==None or len(items)<int(top):
             for item in items:
                 values=','.join([item['miles'],item['km'],item['location'],item['open']])
-                result.append({"ACP Brevet Time Values {}".format(counter):values})
-                counter+=1
+                result.append(values)
             return {'ACP Brevet Open Times Display':result}
         else:
             for i in range(int(top)):
-                values=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['open']])
-                result.append({"ACP Brevet Time Values {}".format(counter):values})
-                counter+=1
-            return {'ACP Brevet Open Times Display':result}
+                values+=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['open']])
+                result.append(values)
+            return result
 
 
 class listCC(Resource):
@@ -110,21 +95,17 @@ class listCC(Resource):
         result=[]
         items=list(db.tododb.find())
         headers='miles,km,location,close'
-        result.append({"ACP Brevet Times Headers":headers})
-        counter=1
+        result.append(headers)
         if top==None or len(items)<int(top):
             for item in items:
                 values=','.join([item['miles'],item['km'],item['location'],item['close']])
-                result.append({"ACP Brevet Time Values {}".format(counter):values})
-                counter+=1
-            return {'ACP Brevet Close Times Display':result}
+                result.append(values)
+            return result
         else:
             for i in range(int(top)):
-                values=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['close']])
-                result.append({"ACP Brevet Time Values {}".format(counter):values})
-                counter+=1
-            return {'ACP Brevet Close Times Display':result}
-
+                values+=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['close']])
+                result.append(values)
+            return result
 
 # Create routes
 # Another way, without decorators
