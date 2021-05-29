@@ -4,7 +4,7 @@ services:
   restapi:
     build: ./api
     ports:
-      - 5002:5000
+      - 5001:5000
 
   website:
     image: php:apache
