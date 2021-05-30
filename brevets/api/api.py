@@ -11,19 +11,22 @@ db=client.tododb
 
 class listAJ(Resource):
     def get(self):
-        top=request.args.get("top")
+        top=request.args.get("top")#get top variable(get fail will became None)
         result=[]
-        items=list(db.tododb.find())
+        items=list(db.tododb.find())#take data in mongo to be list
         if top==None or len(items)<int(top):
+        #if doesn't have top, default display all, or invalid num(bigger than # of instance in mongo)
             for item in items:
                 result.append({'miles':item['miles'],'km':item['km'],'location':item['location'],'open':item['open'],'close':item['close']})
             return result
         else:
+        #else, limit receieve # of data in mongo, only get depond on top
             for i in range(int(top)):
                 result.append({'miles':items[i]['miles'],'km':items[i]['km'],'location':items[i]['location'],'open':items[i]['open'],'close':items[i]['close']})
             return result
 
 class listOJ(Resource):
+    #almost same with listAJ, but don't shows close times
     def get(self):
         top=request.args.get("top")
         result=[]
@@ -38,6 +41,7 @@ class listOJ(Resource):
             return result
 
 class listCJ(Resource):
+    #almost same with listAJ, but doesn't shows open times
     def get(self):
         top=request.args.get("top")
         result=[]
@@ -53,6 +57,7 @@ class listCJ(Resource):
 
 class listAC(Resource):
     def get(self):
+        #except change format to be csv, others almost same with listAJ
         top=request.args.get("top")
         result=[]
         items=list(db.tododb.find())
@@ -60,16 +65,17 @@ class listAC(Resource):
         result.append(headers)
         if top==None or len(items)<int(top):
             for item in items:
-                values=','.join([item['miles'],item['km'],item['location'],item['open'],item['close']])
+                values=','.join([item['miles'],item['km'],item['location'],item['open'],item['close']])#for format of csv
                 result.append(values)
             return result
         else:
             for i in range(int(top)):
-                values=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['open'],items[i]['close']])
+                values=','.join([items[i]['miles'],items[i]['km'],items[i]['location'],items[i]['open'],items[i]['close']])#for format of csv
                 result.append(values)
             return result
 
 class listOC(Resource):
+    #almost same with listAC, but doesn't shows close times
     def get(self):
         top=request.args.get("top")
         result=[]
@@ -89,6 +95,7 @@ class listOC(Resource):
 
 
 class listCC(Resource):
+    #almost same with listAC, but doesn't shows open times
     def get(self):
         top=request.args.get("top")
         result=[]
