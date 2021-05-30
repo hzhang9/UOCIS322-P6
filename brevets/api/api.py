@@ -17,7 +17,6 @@ class listAJ(Resource):
         if top==None or len(items)<int(top):
             for item in items:
                 result.append({'miles':item['miles'],'km':item['km'],'location':item['location'],'open':item['open'],'close':item['close']})
-            #return {'ACP Brevet Times Display':result}
             return result
         else:
             for i in range(int(top)):
